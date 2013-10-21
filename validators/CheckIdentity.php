@@ -20,8 +20,10 @@ class CheckIdentity extends CValidator
 			}
 		}
 
+		$message = $this->message !== null ? $this->message : 'Identity is incorrect.';
+
 		if (!$valid) {
-			$this->addError($object, $attribute, Yii::t('signup', 'Identity is incorrect.'));
+			$this->addError($object, $attribute, $message);
 		}
 	}
 }
