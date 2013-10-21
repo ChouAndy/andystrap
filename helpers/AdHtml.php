@@ -207,7 +207,8 @@ class AdHtml extends TbHtml
 		self::addCssClass('controls-row', $controlOptions);
 		}
 		$before = TbArray::popValue('before', $controlOptions, '');
-		$after = Self::help(TbArray::popValue('after', $controlOptions, ''));
+		$after = TbArray::popValue('after', $controlOptions, '');
+		$after = !empty($after) ? Self::help($after) : '';
 		$content = $before . $input . $after . $error . $help;
 		$output .= self::tag('div', $controlOptions, $content);
 
@@ -256,7 +257,8 @@ class AdHtml extends TbHtml
 		self::addCssClass('controls-row', $controlOptions);
 		}
 		$before = TbArray::popValue('before', $controlOptions, '');
-		$after = Self::help(TbArray::popValue('after', $controlOptions, ''));
+		$after = TbArray::popValue('after', $controlOptions, '');
+		$after = !empty($after) ? Self::help($after) : '';
 		$content = $before . $input . $after . $error . $help;
 		$output .= self::tag('div', $controlOptions, $content);
 
