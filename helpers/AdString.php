@@ -32,4 +32,43 @@ class AdString
 			return false;
 		}
 	}
+
+	/**
+     * 省略字串，並不會造成中文切字亂碼
+	 *
+	 * @param string 需切割字串
+	 * @param int 切割剩多少字 
+	 *
+     * @return string ObjText
+	 *
+     */
+	public static function getSubstr($str, $len, $encode = 'utf-8')
+	{
+		$resultStr = $str;
+		switch ($encode) {
+			case 'big5':
+				for ($i = 0; $i < $len; $i++) {
+					if ($i >= 0 AND $i < $len) {
+						if (ord(substr($str, $i, 1)) > 0xa1) {
+							$resultStr .= substr($str, $i, 2);
+						} else {
+							$resultStr .= substr($str, $i, 1);
+						}
+					}
+					if (ord(substr($str, $i, 1)) > 0xa1) $i++;
+				}
+				if (strlen($str) <= $len)
+					return $resultStr;
+				else
+					return $resultStr."...";
+				break;
+			
+			case 'utf-8':
+				if (mb_strlen($str) > $len) {
+					$resultStr = mb_substr($str, 0, $len, $encode).'...';
+				}
+				return $resultStr;
+				break;
+		}
+	}
 }
