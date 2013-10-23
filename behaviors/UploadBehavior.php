@@ -137,6 +137,8 @@ class UploadBehavior extends CActiveRecordBehavior
 							if (is_file($oldFilePath)) {
 								array_map('unlink', glob($oldFilePath));
 							}
+						} else {
+							$fileModel = new $this->modelName;
 						}
 					}
 					
