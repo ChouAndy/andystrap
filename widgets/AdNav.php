@@ -5,10 +5,23 @@ class AdNav extends TbNav
 {
 	protected function isItemActive($item, $route)
 	{
-		/* when $item['url'][0] only has module id or controller id */ 
 		$urlTrim = trim($item['url'][0], '/');
 		$urlItems = explode('/', $urlTrim);
 
+		/* when $item['url'][0] only has home url '/' */ 
+		if ($item['url'][0] === '/') {
+			$routeItems = explode('/', $route);
+			if (count($routeItems) == 2 && $routeItems[0] === Yii::app()->defaultController) {
+				$defaultController = ucfirst(Yii::app()->defaultController).'Controller';
+				$defaultController = new $defaultController(Yii::app()->defaultController);
+				if ($routeItems[1] === $defaultController->defaultAction) {
+					unset($item['url']['#']);
+					return true;
+				}
+			}
+		}
+
+		/* when $item['url'][0] only has module id or controller id */ 
 		if (isset($item['url']) && is_array($item['url']) && count($urlItems) == 1) {
 			$routeItems = explode('/', $route);
 			if (count($routeItems) == 3 && $routeItems[1] === 'default' && $routeItems[2] === 'index') {
