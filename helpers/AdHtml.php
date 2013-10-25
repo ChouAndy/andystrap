@@ -14,6 +14,9 @@ class AdHtml extends TbHtml
 				'data-toggle' => 'collapse',
 				'data-target' => '#'.$itemOptions['name']
 			);
+			if (isset($itemOptions['color'])) {
+				$htmlOptions['button']['color'] = $itemOptions['color'];
+			}
 			$output .= self::button($itemOptions['label'], $htmlOptions['button']);
 			// nav list
 			$collapse = '';
