@@ -23,8 +23,14 @@ class AdHtml extends TbHtml
 			if (isset($itemOptions['collapse']) && $itemOptions['collapse'] == TRUE) {
 				$collapse = ' in';
 			}
-			if (isset($itemOptions['controller']) && Yii::app()->controller->id == $itemOptions['controller']) {
-				$collapse = ' in';
+			if (isset($itemOptions['controller'])) {
+				if (is_array($itemOptions['controller'])) {
+					foreach ($itemOptions['controller'] as $value) {
+						if ($value == Yii::app()->controller->id) $collapse = ' in';
+					}
+				} else if ($itemOptions['controller'] == Yii::app()->controller->id) {
+					$collapse = ' in';
+				}
 			}
 			$output .= self::openTag('div', array('class' => 'accordion-group'));
 			$output .= self::openTag('div', array('class' => 'collapse'.$collapse, 'id' => $itemOptions['name']));
