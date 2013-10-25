@@ -207,7 +207,7 @@ class AdHtml extends TbHtml
 		/* set controls content */
 		self::addCssClass('controls', $controlOptions);
 		if (TbArray::popValue('row', $controlOptions, false)) {
-		self::addCssClass('controls-row', $controlOptions);
+			self::addCssClass('controls-row', $controlOptions);
 		}
 		$before = TbArray::popValue('before', $controlOptions, '');
 		$after = TbArray::popValue('after', $controlOptions, '');
@@ -257,7 +257,7 @@ class AdHtml extends TbHtml
 		/* set controls content */
 		self::addCssClass('controls', $controlOptions);
 		if (TbArray::popValue('row', $controlOptions, false)) {
-		self::addCssClass('controls-row', $controlOptions);
+			self::addCssClass('controls-row', $controlOptions);
 		}
 		$before = TbArray::popValue('before', $controlOptions, '');
 		$after = TbArray::popValue('after', $controlOptions, '');
