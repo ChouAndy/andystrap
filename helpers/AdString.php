@@ -14,15 +14,6 @@ class AdString
 		}
 	}
 
-	public static function getYesNo($value)
-	{
-		$alias = array(
-			'1' => Yii::t('AdminModule.admin', 'Yes'),
-			'0' => Yii::t('AdminModule.admin', 'No'),
-		);
-		return $alias[$value];
-	}
-
 	public static function is_utf8($str) 
 	{
 		if (preg_match("/^([".chr(228)."-".chr(233)."]{1}[".chr(128)."-".chr(191)."]{1}[".chr(128)."-".chr(191)."]{1}){1}/",$str) == true || preg_match("/([".chr(228)."-".chr(233)."]{1}[".chr(128)."-".chr(191)."]{1}[".chr(128)."-".chr(191)."]{1}){1}$/",$str) == true || preg_match("/([".chr(228)."-".chr(233)."]{1}[".chr(128)."-".chr(191)."]{1}[".chr(128)."-".chr(191)."]{1}){2,}/",$str) == true) 
