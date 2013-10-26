@@ -100,7 +100,7 @@ class AdHtml extends TbHtml
 		return self::actionButtons($backButton);
 	}
 
-	public static function areaFormButtons($confirm, $cancel = '', $url = 'index')
+	public static function areaFormButtons($confirm, $cancel = '', $url = array('index'))
 	{
 		$formButtons[] = array(
 			'type' => self::BUTTON_TYPE_SUBMIT,
@@ -115,7 +115,7 @@ class AdHtml extends TbHtml
 				'type' => self::BUTTON_TYPE_LINK,
 				'label' => $cancel,
 				'htmlOptions' => array(
-					'url' => array($url),
+					'url' => $url,
 				)
 			);
 		}
