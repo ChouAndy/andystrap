@@ -62,4 +62,17 @@ class AdString
 				break;
 		}
 	}
+
+	/**
+     * use pre tag print_r $data
+	 *
+	 * @param want to print data 
+	 *
+     */
+	public static function prePrint($data)
+	{
+		echo '<pre>';
+		print_r($data);
+		echo '</pre>';
+	}
 }
