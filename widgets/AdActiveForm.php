@@ -22,4 +22,10 @@ class AdActiveForm extends TbActiveForm
 		$htmlOptions = $this->processControlGroupOptions($model, $attribute, $htmlOptions);
 		return AdHtml::activeTextFieldControlGroup($model, $attribute, $htmlOptions);
 	}
+
+	public function TypeAheadControlGroup($model, $attribute, $source, $htmlOptions = array())
+	{
+		$htmlOptions = $this->processControlGroupOptions($model, $attribute, $htmlOptions);
+		return AdHtml::activeTypeAheadControlGroup($model, $attribute, $source, $htmlOptions);
+	}
 }
