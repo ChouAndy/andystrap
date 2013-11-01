@@ -69,7 +69,7 @@ class AdString
 	 * @param want to print data 
 	 *
      */
-	public static function prePrint($data)
+	public static function pr($data)
 	{
 		echo '<pre>';
 		print_r($data);
