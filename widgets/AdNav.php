@@ -30,7 +30,7 @@ class AdNav extends TbNav
 					return true;
 				}
 			}
-			if (count($routeItems) == 2 && $routeItems[1] === 'index') {
+			if (count($routeItems) == 2) {
 				if ($urlTrim === $routeItems[0]) {
 					unset($item['url']['#']);
 					return true;
