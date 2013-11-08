@@ -24,7 +24,7 @@ class AdNav extends TbNav
 		/* when $item['url'][0] only has module id or controller id */ 
 		if (isset($item['url']) && is_array($item['url']) && count($urlItems) == 1) {
 			$routeItems = explode('/', $route);
-			if (count($routeItems) == 3 && $routeItems[1] === 'default' && $routeItems[2] === 'index') {
+			if (count($routeItems) == 3) {
 				if ($urlTrim === $routeItems[0]) {
 					unset($item['url']['#']);
 					return true;
