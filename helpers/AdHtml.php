@@ -326,4 +326,58 @@ class AdHtml extends TbHtml
 		echo '</div>';
 		echo '</div>';
 	}
+
+	public static function activeTimePickerControlGroup($model, $attribute, $htmlOptions = array())
+	{
+		$color = TbArray::popValue('color', $htmlOptions);
+		$groupOptions = TbArray::popValue('groupOptions', $htmlOptions, array());
+		$controlOptions = TbArray::popValue('controlOptions', $htmlOptions, array());
+		$label = TbArray::popValue('label', $htmlOptions);
+		$labelOptions = TbArray::popValue('labelOptions', $htmlOptions, array());
+
+		if (isset($label) && $label !== false) {
+			$labelOptions['label'] = $label;
+		}
+
+		$help = TbArray::popValue('help', $htmlOptions, '');
+		$helpOptions = TbArray::popValue('helpOptions', $htmlOptions, array());
+		if (!empty($help)) {
+			$help = self::inputHelp($help, $helpOptions);
+		}
+		$error = TbArray::popValue('error', $htmlOptions, '');
+
+		self::addCssClass('control-group', $groupOptions);
+		if (!empty($color)) {
+			self::addCssClass($color, $groupOptions);
+		}
+		self::addCssClass('control-label', $labelOptions);
+		self::addCssClass('controls', $controlOptions);
+
+		if (TbArray::popValue('row', $controlOptions, false)) {
+			self::addCssClass('controls-row', $controlOptions);
+		}
+
+		$before = TbArray::popValue('before', $controlOptions, '');
+		$after = TbArray::popValue('after', $controlOptions, '');
+
+		echo self::openTag('div', $groupOptions);
+		if ($label !== false) {
+			echo parent::activeLabelEx($model, $attribute, $labelOptions);
+		}
+		echo self::openTag('div', $controlOptions);
+
+		$pluginOptions = TbArray::popValue('pluginOptions', $htmlOptions, array());
+
+		Yii::app()->controller->widget('yiiwheels.widgets.timepicker.WhTimePicker', array(
+			'model' => $model,
+			'attribute' => $attribute,
+			'htmlOptions' => $htmlOptions,
+			'pluginOptions' => $pluginOptions,
+		));
+
+		echo $error.$help;
+
+		echo '</div>';
+		echo '</div>';
+	}
 }

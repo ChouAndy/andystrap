@@ -28,4 +28,10 @@ class AdActiveForm extends TbActiveForm
 		$htmlOptions = $this->processControlGroupOptions($model, $attribute, $htmlOptions);
 		return AdHtml::activeTypeAheadControlGroup($model, $attribute, $source, $htmlOptions);
 	}
+
+	public function TimePickerControlGroup($model, $attribute, $htmlOptions = array())
+	{
+		$htmlOptions = $this->processControlGroupOptions($model, $attribute, $htmlOptions);
+		return AdHtml::activeTimePickerControlGroup($model, $attribute, $htmlOptions);
+	}
 }
