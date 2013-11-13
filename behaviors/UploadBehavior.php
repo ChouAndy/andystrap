@@ -97,7 +97,8 @@ class UploadBehavior extends CActiveRecordBehavior
 				/* delete old file */
 				if (!$this->Owner->isNewRecord) {
 					$oldData = $this->Owner->findByPk($this->Owner->id);
-					if (!empty($oldData->getAttribute($this->attribute))) {
+					$oldFile = $oldData->getAttribute($this->attribute);
+					if (!empty($oldFile)) {
 						$oldFilePath = $this->webroot.$oldData->getAttribute($this->attribute);
 						array_map('unlink', glob($oldFilePath));
 					}
