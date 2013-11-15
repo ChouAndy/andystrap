@@ -55,7 +55,7 @@ class AdString
 				break;
 			
 			case 'utf-8':
-				if (mb_strlen($str) > $len) {
+				if (mb_strlen($str, $encode) > $len) {
 					$resultStr = mb_substr($str, 0, $len, $encode).'...';
 				}
 				return $resultStr;
