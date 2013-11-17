@@ -11,16 +11,24 @@ class AdHtml extends TbHtml
 			$htmlOptions['button'] = array(
 				'color' => self::BUTTON_COLOR_PRIMARY,
 				'block' => TRUE,
-				'data-toggle' => 'collapse',
-				'data-target' => '#'.$itemOptions['name']
 			);
 			if (isset($itemOptions['color'])) {
 				$htmlOptions['button']['color'] = $itemOptions['color'];
 			}
-			$output .= self::button($itemOptions['label'], $htmlOptions['button']);
+
+			// build header - use link or not
+			if (isset($itemOptions['headerLink']) && !$itemOptions['headerLink']) {
+				TbArray::defaultValue('data-toggle', 'collapse', $htmlOptions['button']);
+				TbArray::defaultValue('data-target', '#'.$itemOptions['name'], $htmlOptions['button']);
+				$output .= self::button($itemOptions['label'], $htmlOptions['button']);
+			} else {
+				TbArray::defaultValue('url', $subitems[$itemOptions['name']][0]['url'], $htmlOptions['button']);
+				$output .= self::linkButton($itemOptions['label'], $htmlOptions['button']);
+			}
+
 			// nav list
 			$collapse = '';
-			if (isset($itemOptions['collapse']) && $itemOptions['collapse'] == TRUE) {
+			if (isset($itemOptions['collapse']) && $itemOptions['collapse']) {
 				$collapse = ' in';
 			}
 			if (isset($itemOptions['controller'])) {
