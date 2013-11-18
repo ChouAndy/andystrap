@@ -1,5 +1,5 @@
-yii-fancybox
-============
+Andystrap
+=========
 
 fancybox v2.1.5 for Yii Framework
 

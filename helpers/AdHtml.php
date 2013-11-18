@@ -2,7 +2,7 @@
 
 class AdHtml extends TbHtml
 {
-	public static function sidebar($items, $subitems, $htmlOptions = array())
+	public static function sidebar($items, $htmlOptions = array())
 	{
 		$output = self::openTag('div', array('class' => 'sidebar'));
 
@@ -16,36 +16,65 @@ class AdHtml extends TbHtml
 				$htmlOptions['button']['color'] = $itemOptions['color'];
 			}
 
-			// build header - use link or not
-			if (isset($itemOptions['headerLink']) && !$itemOptions['headerLink']) {
-				TbArray::defaultValue('data-toggle', 'collapse', $htmlOptions['button']);
-				TbArray::defaultValue('data-target', '#'.$itemOptions['name'], $htmlOptions['button']);
-				$output .= self::button($itemOptions['label'], $htmlOptions['button']);
-			} else {
-				TbArray::defaultValue('url', $subitems[$itemOptions['name']][0]['url'], $htmlOptions['button']);
-				$output .= self::linkButton($itemOptions['label'], $htmlOptions['button']);
-			}
-
-			// nav list
-			$collapse = '';
-			if (isset($itemOptions['collapse']) && $itemOptions['collapse']) {
-				$collapse = ' in';
-			}
+			// active items color setting
 			if (isset($itemOptions['controller'])) {
 				if (is_array($itemOptions['controller'])) {
 					foreach ($itemOptions['controller'] as $value) {
-						if ($value == Yii::app()->controller->id) $collapse = ' in';
+						if ($value == Yii::app()->controller->id) {
+							$htmlOptions['button']['color'] = self::BUTTON_COLOR_WARNING;
+						}
 					}
 				} else if ($itemOptions['controller'] == Yii::app()->controller->id) {
-					$collapse = ' in';
+					$htmlOptions['button']['color'] = self::BUTTON_COLOR_WARNING;
 				}
 			}
-			$output .= self::openTag('div', array('class' => 'accordion-group'));
-			$output .= self::openTag('div', array('class' => 'collapse'.$collapse, 'id' => $itemOptions['name']));
-			$output .= self::navList($subitems[$itemOptions['name']], array('class' => 'sidenav'));
-			$output .= self::closeTag('div');
-			$output .= self::closeTag('div');
+			if (isset($itemOptions['action'])) {
+				if (is_array($itemOptions['action'])) {
+					foreach ($itemOptions['action'] as $value) {
+						if ($value == Yii::app()->controller->action->id) {
+							$htmlOptions['button']['color'] = self::BUTTON_COLOR_WARNING;
+						}
+					}
+				} else if ($itemOptions['action'] == Yii::app()->controller->action->id) {
+					$htmlOptions['button']['color'] = self::BUTTON_COLOR_WARNING;
+				}
+			}
 
+			// build header - use link or not
+			if (isset($itemOptions['url'])) {
+				TbArray::defaultValue('url', $itemOptions['url'], $htmlOptions['button']);
+				$output .= self::linkButton($itemOptions['label'], $htmlOptions['button']);
+			} else {
+				TbArray::defaultValue('data-toggle', 'collapse', $htmlOptions['button']);
+				TbArray::defaultValue('data-target', '#'.$itemOptions['name'], $htmlOptions['button']);
+				$output .= self::button($itemOptions['label'], $htmlOptions['button']);
+			}
+			
+			// subitems nav list
+			if (isset($itemOptions['subitems'])) {
+				// collapse setting
+				$collapse = '';
+				if (isset($itemOptions['collapse']) && $itemOptions['collapse']) {
+					$collapse = ' in';
+				}
+				if (isset($itemOptions['controller'])) {
+					if (is_array($itemOptions['controller'])) {
+						foreach ($itemOptions['controller'] as $value) {
+							if ($value == Yii::app()->controller->id) {
+								$collapse = ' in';
+							}
+						}
+					} else if ($itemOptions['controller'] == Yii::app()->controller->id) {
+						$collapse = ' in';
+					}
+				}
+
+				$output .= self::openTag('div', array('class' => 'accordion-group'));
+				$output .= self::openTag('div', array('class' => 'collapse'.$collapse, 'id' => $itemOptions['name']));
+				$output .= self::navList($itemOptions['subitems'], array('class' => 'sidenav'));
+				$output .= self::closeTag('div');
+				$output .= self::closeTag('div');
+			}
 		}
 		$output .= self::closeTag('div');
 
