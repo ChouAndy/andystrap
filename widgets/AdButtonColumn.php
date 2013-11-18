@@ -4,6 +4,11 @@ Yii::import('bootstrap.widgets.TbButtonColumn');
 
 class AdButtonColumn extends TbButtonColumn
 {
+	public $extraButtons;
+
+	public $useViewButton = TRUE;
+
+	public $template = '';
 
 	protected function initDefaultButtons()
 	{
@@ -13,10 +18,21 @@ class AdButtonColumn extends TbButtonColumn
 		$this->buttons['update']['label'] = Yii::t('AdminModule.admin', 'Update');
 		$this->buttons['delete']['label'] = Yii::t('AdminModule.admin', 'Delete');
 
-		$this->template = '{view}';
 		$this->htmlOptions = array(
 			'class' => 'ad-button-column'
 		);
+
+		// add extra buttons to $buttons
+		if (isset($this->extraButtons)) {
+			foreach($this->extraButtons as $id => $buttonOptions) {
+				TbArray::defaultValue($id, $buttonOptions, $this->buttons);
+				$this->template .= '{'.$id.'}';
+			}
+		}
+
+		if ($this->useViewButton) {
+			$this->template .= '{view}';
+		}
 	}
 
 	protected function renderButton($id, $button, $row, $data)
