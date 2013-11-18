@@ -14,6 +14,9 @@ class AdButtonColumn extends TbButtonColumn
 		$this->buttons['delete']['label'] = Yii::t('AdminModule.admin', 'Delete');
 
 		$this->template = '{view}';
+		$this->htmlOptions = array(
+			'class' => 'ad-button-column'
+		);
 	}
 
 	protected function renderButton($id, $button, $row, $data)
