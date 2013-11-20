@@ -417,4 +417,16 @@ class AdHtml extends TbHtml
 		echo '</div>';
 		echo '</div>';
 	}
+
+	public static function iconNav($icon, $htmlOptions = array(), $tagName = 'i')
+	{
+		if (is_string($icon)) {
+			if (strpos($icon, 'nav') === false) {
+				$icon = 'nav-' . implode(' nav-', explode(' ', $icon));
+			}
+			self::addCssClass($icon, $htmlOptions);
+			return self::openTag($tagName, $htmlOptions) . parent::closeTag($tagName); // tag won't work in this case
+		}
+		return '';
+	}
 }
