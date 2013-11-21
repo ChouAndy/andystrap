@@ -3,6 +3,23 @@ Yii::import('bootstrap.widgets.TbNav');
 
 class AdNav extends TbNav
 {
+	public function run()
+	{
+		if (!empty($this->items)) {
+			if ($this->type == 'buttonGroup') {
+				foreach ($this->items as $key => $itemOptions)  {
+					if (TbArray::popValue('active', $this->items[$key])) {
+						TbHtml::addCssClass('active', $this->items[$key]['htmlOptions']);
+						TbArray::defaultValue('color', TbHtml::BUTTON_COLOR_INVERSE, $this->items[$key]);
+					}
+				}
+				echo TbHtml::buttonGroup($this->items, $this->htmlOptions);
+			} else {
+				echo TbHtml::nav($this->type, $this->items, $this->htmlOptions);
+			}
+		}
+	}
+
 	protected function isItemActive($item, $route)
 	{
 		$urlTrim = trim($item['url'][0], '/');

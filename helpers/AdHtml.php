@@ -8,10 +8,15 @@ class AdHtml extends TbHtml
 
 		foreach ($items as $itemOptions) {
 			// button title
+			$color = TbArray::getValue('color', $htmlOptions);
 			$htmlOptions['button'] = array(
-				'color' => self::BUTTON_COLOR_PRIMARY,
 				'block' => TRUE,
 			);
+			if (!empty($color)) {
+				TbArray::defaultValue('color', $color, $htmlOptions['button']);
+			} else {
+				TbArray::defaultValue('color', self::BUTTON_COLOR_PRIMARY, $htmlOptions['button']);
+			}
 			if (isset($itemOptions['color'])) {
 				$htmlOptions['button']['color'] = $itemOptions['color'];
 			}
