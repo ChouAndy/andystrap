@@ -434,4 +434,16 @@ class AdHtml extends TbHtml
 		}
 		return '';
 	}
+
+	public static function linkPager($text, $url = '#', $htmlOptions = array())
+	{
+		$data = TbArray::popValue('data', $htmlOptions);
+		$pageParam = get_class($data).'_page';
+		$currentPage = Yii::app()->request->getParam($pageParam);
+
+		if (!empty($currentPage)) {
+			TbArray::defaultValue($pageParam, $currentPage, $url);
+		}
+		return self::link($text, $url);
+	}
 }
