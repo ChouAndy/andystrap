@@ -153,6 +153,11 @@ class AdHtml extends TbHtml
 		);
 
 		if (!empty($cancel)) {
+			if (Yii::app()->controller->pageUrl) {
+				if (!empty($url)) {
+					$url = self::urlPager($url);
+				}
+			}
 			$formButtons[] = array(
 				'type' => self::BUTTON_TYPE_LINK,
 				'label' => $cancel,
@@ -161,7 +166,7 @@ class AdHtml extends TbHtml
 				)
 			);
 		}
-		
+
 		return self::actionButtonsControlGroup($formButtons);
 	}
 
@@ -435,15 +440,56 @@ class AdHtml extends TbHtml
 		return '';
 	}
 
-	public static function linkPager($text, $url = '#', $htmlOptions = array())
+	public static function link($text, $url = '#', $htmlOptions = array())
 	{
-		$data = TbArray::popValue('data', $htmlOptions);
-		$pageParam = get_class($data).'_page';
-		$currentPage = Yii::app()->request->getParam($pageParam);
+		$url = self::urlPager($url);
+		return parent::link($text, $url, $htmlOptions);
+	}
 
+	public static function urlPager($url, $pageVar = 'page', $sortVar = 'sort')
+	{
+		$currentPage = Yii::app()->request->getParam($pageVar);
 		if (!empty($currentPage)) {
-			TbArray::defaultValue($pageParam, $currentPage, $url);
+			if (is_array($url)) {
+				TbArray::defaultValue($pageVar, $currentPage, $url);
+			} else {
+				$url .= '&'.$pageVar.'='.$currentPage;
+			}
 		}
-		return self::link($text, $url);
+		$currentSort = Yii::app()->request->getParam($sortVar);
+		if (!empty($currentSort)) {
+			if (is_array($url)) {
+				TbArray::defaultValue($sortVar, $currentSort, $url);
+			} else {
+				$url .= '&'.$sortVar.'='.$currentSort;
+			}
+		}
+		return $url;
+	}
+
+	public static function buttonToolbar(array $groups, $htmlOptions = array())
+	{
+		if (!empty($groups)) {
+			$urlPager = TbArray::popValue('urlPager', $htmlOptions);
+			if ($urlPager) {
+				$pageVar = TbArray::popValue('pageVar', $htmlOptions, 'page');
+				foreach ($groups as $i => $groupOptions) {
+					$items = TbArray::popValue('items', $groupOptions, array());
+					if (!empty($items)) {
+						foreach ($groups[$i]['items'] as $j => $itemsOptions) {
+							$url = TbArray::popValue('url', $groups[$i]['items'][$j]);
+							if (!empty($url)) {
+								TbArray::defaultValue('url', self::urlPager($url, $pageVar), $groups[$i]['items'][$j]);
+							}
+							$submit = TbArray::popValue('submit', $groups[$i]['items'][$j]);
+							if (!empty($submit)) {
+								TbArray::defaultValue('submit', self::urlPager($submit, $pageVar), $groups[$i]['items'][$j]);
+							}
+						}
+					}
+				}
+			}
+		}
+		return parent::buttonToolbar($groups, $htmlOptions);
 	}
 }

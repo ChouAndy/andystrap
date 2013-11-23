@@ -51,6 +51,6 @@ class AdButtonColumn extends TbButtonColumn
 		$options = TbArray::popValue('options', $button, array());
 		$icon = TbArray::popValue('icon', $button, false);
 
-		echo CHtml::link(TbHtml::icon($icon).' '.$label, $url, $options);
+		echo AdHtml::link(TbHtml::icon($icon).' '.$label, $url, $options);
 	}
 }
