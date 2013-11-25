@@ -3,6 +3,8 @@ Yii::import('bootstrap.widgets.TbNav');
 
 class AdNav extends TbNav
 {
+	public $activeController;
+
 	public function run()
 	{
 		if (!empty($this->items)) {
@@ -51,6 +53,14 @@ class AdNav extends TbNav
 				if ($urlTrim === $routeItems[0]) {
 					unset($item['url']['#']);
 					return true;
+				}
+			}
+			if (!empty($this->activeController[$urlTrim])) {
+				foreach ($this->activeController[$urlTrim] as $value) {
+					if ($value === $routeItems[0]) {
+						unset($item['url']['#']);
+						return true;
+					}
 				}
 			}
 		}
