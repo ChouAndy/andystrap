@@ -8,15 +8,13 @@ class AdHtml extends TbHtml
 
 		foreach ($items as $itemOptions) {
 			// button title
-			$color = TbArray::getValue('color', $htmlOptions);
+			$color = TbArray::getValue('color', $htmlOptions, self::BUTTON_COLOR_PRIMARY);
+			$activeColor = TbArray::getValue('activeColor', $htmlOptions, self::BUTTON_COLOR_WARNING);
 			$htmlOptions['button'] = array(
 				'block' => TRUE,
 			);
-			if (!empty($color)) {
-				TbArray::defaultValue('color', $color, $htmlOptions['button']);
-			} else {
-				TbArray::defaultValue('color', self::BUTTON_COLOR_PRIMARY, $htmlOptions['button']);
-			}
+
+			TbArray::defaultValue('color', $color, $htmlOptions['button']);
 			if (isset($itemOptions['color'])) {
 				$htmlOptions['button']['color'] = $itemOptions['color'];
 			}
@@ -26,22 +24,22 @@ class AdHtml extends TbHtml
 				if (is_array($itemOptions['controller'])) {
 					foreach ($itemOptions['controller'] as $value) {
 						if ($value == Yii::app()->controller->id) {
-							$htmlOptions['button']['color'] = self::BUTTON_COLOR_WARNING;
+							$htmlOptions['button']['color'] = $activeColor;
 						}
 					}
 				} else if ($itemOptions['controller'] == Yii::app()->controller->id) {
-					$htmlOptions['button']['color'] = self::BUTTON_COLOR_WARNING;
+					$htmlOptions['button']['color'] = $activeColor;
 				}
 			}
 			if (isset($itemOptions['action'])) {
 				if (is_array($itemOptions['action'])) {
 					foreach ($itemOptions['action'] as $value) {
 						if ($value == Yii::app()->controller->action->id) {
-							$htmlOptions['button']['color'] = self::BUTTON_COLOR_WARNING;
+							$htmlOptions['button']['color'] = $activeColor;
 						}
 					}
 				} else if ($itemOptions['action'] == Yii::app()->controller->action->id) {
-					$htmlOptions['button']['color'] = self::BUTTON_COLOR_WARNING;
+					$htmlOptions['button']['color'] = $activeColor;
 				}
 			}
 
