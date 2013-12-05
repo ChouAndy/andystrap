@@ -490,4 +490,55 @@ class AdHtml extends TbHtml
 		}
 		return parent::buttonToolbar($groups, $htmlOptions);
 	}
+
+	public static function iconFA($icon, $htmlOptions = array(), $tagName = 'i')
+	{
+		if (is_string($icon)) {
+			self::addCssClass('fa', $htmlOptions);
+
+			if (strpos($icon, 'fa') === false) {
+				$icon = 'fa-'.implode(' fa-', explode(' ', $icon));
+			}
+			self::addCssClass($icon, $htmlOptions);
+			
+			$size = TbArray::popValue('size', $htmlOptions); // size setting
+			if (!empty($size)) {
+				if ($size >= 1 && $size <= 5) {
+					$sizeClass = '';
+					if ($size == 1) {
+						$sizeClass = 'fa-lg';
+					} else {
+						$sizeClass = 'fa-'.$size.'x';
+					}
+					self::addCssClass($sizeClass, $htmlOptions);
+				}
+			}
+
+			$fw = TbArray::popValue('fw', $htmlOptions); // fixed width setting
+			if ($fw) self::addCssClass('fa-fw', $htmlOptions);
+
+			$border = TbArray::popValue('border', $htmlOptions); // border setting
+			if ($border) self::addCssClass('fa-border', $htmlOptions);
+
+			$spin = TbArray::popValue('spin', $htmlOptions); // spin setting
+			if ($spin) self::addCssClass('fa-spin', $htmlOptions);
+
+			$rotate = TbArray::popValue('rotate', $htmlOptions); // rotate setting
+			if (!empty($rotate)) {
+				if ($rotate == 90 || $rotate == 180 || $rotate == 270) {
+					$rotateClass = 'fa-rotate-'.$rotate;
+					self::addCssClass($rotateClass, $htmlOptions);
+				}
+			}
+
+			$flipH = TbArray::popValue('flipH', $htmlOptions); // flip horizontal setting
+			if ($flipH) self::addCssClass('fa-flip-horizontal', $htmlOptions);
+
+			$flipV = TbArray::popValue('flipV', $htmlOptions); // flip vertical setting
+			if ($flipV) self::addCssClass('fa-flip-vertical', $htmlOptions);
+
+			return self::openTag($tagName, $htmlOptions) . parent::closeTag($tagName); // tag won't work in this case
+		}
+		return '';
+	}
 }
