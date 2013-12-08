@@ -31,9 +31,11 @@ class AdFancyBox extends CWidget
     public function run()
     {
 		$config = CJavaScript::encode($this->config);
-		Yii::app()->clientScript->registerScript($this->getId(), "
-			$('$this->target').fancybox($config);
-		");
+		Yii::app()->clientScript->registerScript(
+			$this->getId(),
+			"jQuery('$this->target').fancybox($config);",
+			CClientScript::POS_END
+		);
 	}
 	
 	// function to publish and register assets on page 

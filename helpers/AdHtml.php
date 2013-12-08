@@ -496,9 +496,7 @@ class AdHtml extends TbHtml
 		if (is_string($icon)) {
 			self::addCssClass('fa', $htmlOptions);
 
-			if (strpos($icon, 'fa') === false) {
-				$icon = 'fa-'.implode(' fa-', explode(' ', $icon));
-			}
+			$icon = 'fa-'.$icon;
 			self::addCssClass($icon, $htmlOptions);
 			
 			$size = TbArray::popValue('size', $htmlOptions); // size setting

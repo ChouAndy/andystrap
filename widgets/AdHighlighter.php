@@ -127,6 +127,10 @@ class AdHighlighter extends COutputProcessor
 				$this->coreCSSFile = 'shCoreDjango.css';
 				break;
 
+			case 'elipse':
+				$this->coreCSSFile = 'shCoreElipse.css';
+				break;
+
 			case 'emacs':
 				$this->coreCSSFile = 'shCoreEmacs.css';
 				break;

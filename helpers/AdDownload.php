@@ -1,6 +1,6 @@
 <?php 
-class AdDownload {
-	
+class AdDownload
+{
 	public static $stream_types = array(
 		'mp3','m3u','m4a','mid','ogg','ra','ram','wm', 
 		'wav','wma','aac','3gp','avi','mov','mp4','mpeg',
@@ -14,8 +14,8 @@ class AdDownload {
 	 * @param integer $speed maximum download speed
 	 * @param boolean $doStream if stream or not
 	 */
-	public static function download($filepath, $filename = '', $maxSpeed = 100, $doStream = false) {
-
+	public static function download($filepath, $filename = '', $maxSpeed = 100, $doStream = false)
+	{
 		$seek_start 	=  0;
 		$seek_end 		= -1;
 		$data_section 	=  false;
