@@ -102,16 +102,33 @@ class AdHighlighter extends COutputProcessor
 	// function to publish and register assets on page 
 	public function publishAssets()
 	{
-		$this->assetsRegistry->registerCssFile($this->getAssetsUrl().'/highlighter/css/'.$this->getCssFile());
-		$this->assetsRegistry->registerScriptFile($this->getAssetsUrl().'/highlighter/js/shCore.js', CClientScript::POS_END);
-		$this->assetsRegistry->registerScriptFile($this->getAssetsUrl().'/highlighter/js/'.$this->getScriptFile(), CClientScript::POS_END);
+		if (!Yii::app()->params['highlighter.publishAssets']) {
+			$this->assetsRegistry->registerCssFile($this->getAssetsUrl().'/highlighter/css/'.$this->getCssFile());
+			$this->assetsRegistry->registerScriptFile($this->getAssetsUrl().'/highlighter/js/shCore.js', CClientScript::POS_END);
+			$this->assetsRegistry->registerScriptFile($this->getAssetsUrl().'/highlighter/js/'.$this->getScriptFile(), CClientScript::POS_END);
+
+			Yii::app()->params['highlighter.publishAssets'] = TRUE;
+			$languages = array($this->language);
+			Yii::app()->params['highlighter.language'] = $languages;
+		} else {
+			$languages = Yii::app()->params['highlighter.language'];
+			if (!in_array($this->language, $languages)) {
+				$this->assetsRegistry->registerScriptFile($this->getAssetsUrl().'/highlighter/js/'.$this->getScriptFile(), CClientScript::POS_END);
+				$languages[] = $this->language;
+				Yii::app()->params['highlighter.language'] = $languages;
+			}
+		}
 	}
 
 	public function registerJSCode()
 	{
-		$script = "SyntaxHighlighter.defaults['toolbar'] = false;\n";
-		$script .= "SyntaxHighlighter.all();";
-		Yii::app()->clientScript->registerScript($this->id, $script, CClientScript::POS_END);
+		if (empty(Yii::app()->params['highlighter.jscode'])) {
+			$script = "SyntaxHighlighter.defaults['toolbar'] = false;\n";
+			$script .= "SyntaxHighlighter.all();";
+			Yii::app()->clientScript->registerScript($this->id, $script, CClientScript::POS_END);
+
+			Yii::app()->params['highlighter.jscode'] = TRUE;
+		}
 	}
 
 	public function getCssFile()
