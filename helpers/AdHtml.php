@@ -539,4 +539,71 @@ class AdHtml extends TbHtml
 		}
 		return '';
 	}
+
+	public static function nav($type, $items, $htmlOptions = array())
+	{
+		self::addCssClass('nav', $htmlOptions);
+		if (!empty($type)) {
+			self::addCssClass('nav-' . $type, $htmlOptions);
+		}
+		$stacked = TbArray::popValue('stacked', $htmlOptions, false);
+		if ($type !== self::NAV_TYPE_LIST && $stacked) {
+			self::addCssClass('nav-stacked', $htmlOptions);
+		}
+		return self::menu($items, $htmlOptions);
+	}
+
+	public static function menu(array $items, $htmlOptions = array(), $depth = 0)
+	{
+		// todo: consider making this method protected.
+		if (!empty($items)) {
+			$htmlOptions['role'] = 'menu';
+			$output = self::openTag('ul', $htmlOptions);
+			foreach ($items as $itemOptions) {
+				if (is_string($itemOptions)) {
+					$output .= $itemOptions;
+				} else {
+					if (isset($itemOptions['visible'])) {
+						if (!TbArray::popValue('visible', $itemOptions)) continue;
+					}
+
+					// todo: consider removing the support for htmlOptions.
+					$options = TbArray::popValue('htmlOptions', $itemOptions, array());
+					if (!empty($options)) {
+						$itemOptions = TbArray::merge($options, $itemOptions);
+					}
+					$label = TbArray::popValue('label', $itemOptions, '');
+					if (TbArray::popValue('active', $itemOptions, false)) {
+						self::addCssClass('active', $itemOptions);
+					}
+					if (TbArray::popValue('disabled', $itemOptions, false)) {
+						self::addCssClass('disabled', $itemOptions);
+					}
+					if (!isset($itemOptions['linkOptions'])) {
+						$itemOptions['linkOptions'] = array();
+					}
+					$icon = TbArray::popValue('icon', $itemOptions);
+					if (!empty($icon)) {
+						$label = self::icon($icon) . ' ' . $label;
+					}
+					$items = TbArray::popValue('items', $itemOptions, array());
+					$url = TbArray::popValue('url', $itemOptions, false);
+					if (empty($items)) {
+						if (!$url) {
+							$output .= self::menuHeader($label);
+						} else {
+							$itemOptions['linkOptions']['tabindex'] = -1;
+							$output .= self::menuLink($label, $url, $itemOptions);
+						}
+					} else {
+						$output .= self::menuDropdown($label, $url, $items, $itemOptions, $depth);
+					}
+				}
+			}
+			$output .= '</ul>';
+			return $output;
+		} else {
+			return '';
+		}
+	}
 }
