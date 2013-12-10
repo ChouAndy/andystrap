@@ -1,14 +1,23 @@
-Andystrap
-=========
-
-fancybox v2.1.5 for Yii Framework
+Andystrap for Yii Framework
+===========================
 
 ## 安裝
 
- * 將目錄 assets 及檔案 FancyBox.php 放到目錄 protected/extensions/fancybox 底下
- * 將底下程式碼放到 views 中
+ * 將底下程式碼放到 protected/config/main.php 中
 
-	    $this->widget('application.extensions.fancybox.FancyBox', array(
-	        'target' => 'a[rel=gallery]',
-	        'config' => array(),
-	    ));
+	    'aliases' => array(
+	        // for andystrap
+	        'andystrap' => 'ext.andystrap',
+	    ),
+	    // autoloading model and component classes
+	    'import' => array(
+	        // for andystrap
+	        'andystrap.helpers.*',
+	    ),
+	    // application components
+	    'components' => array(
+	        // for Andystrap
+	        'andystrap' => array(
+	            'class' => 'andystrap.components.Andystrap',
+	        ),
+	    ),
