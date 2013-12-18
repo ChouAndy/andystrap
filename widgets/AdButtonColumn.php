@@ -14,9 +14,9 @@ class AdButtonColumn extends TbButtonColumn
 	{
 		parent::initDefaultButtons();
 
-		$this->buttons['view']['label'] = Yii::t('AdminModule.admin', 'View');
-		$this->buttons['update']['label'] = Yii::t('AdminModule.admin', 'Update');
-		$this->buttons['delete']['label'] = Yii::t('AdminModule.admin', 'Delete');
+		$this->buttons['view']['label'] = Yii::t('zii', 'View');
+		$this->buttons['update']['label'] = Yii::t('zii', 'Update');
+		$this->buttons['delete']['label'] = Yii::t('zii', 'Delete');
 
 		$this->htmlOptions = array(
 			'class' => 'ad-button-column'
