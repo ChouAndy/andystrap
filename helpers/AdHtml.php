@@ -584,7 +584,7 @@ class AdHtml extends TbHtml
 					}
 					$icon = TbArray::popValue('icon', $itemOptions);
 					if (!empty($icon)) {
-						$label = self::icon($icon) . ' ' . $label;
+						$label = self::iconFA($icon).' '.$label;
 					}
 					$items = TbArray::popValue('items', $itemOptions, array());
 					$url = TbArray::popValue('url', $itemOptions, false);
