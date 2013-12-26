@@ -86,22 +86,18 @@ class AdHtml extends TbHtml
 
 	public static function actionButtonsControlGroup(array $buttons)
 	{
-		$groupOptions = array();
-		self::addCssClass('control-group', $groupOptions);
+		$htmlOptions = array();
+		self::addCssClass('form-actions', $htmlOptions);
 
-		$input = '';
-		for ($i = 0; $i < count($buttons); $i++) {
-			$input .= self::btn($buttons[$i]['type'], $buttons[$i]['label'], $buttons[$i]['htmlOptions']);
-			if ($i < count($buttons) - 1) {
-				$input .= ' ';
-			}
+		$actions = array();
+		foreach ($buttons as $button) {
+			$actions[] = self::btn($button['type'], $button['label'], $button['htmlOptions']);
+		}
+		if (is_array($actions)) {
+			$actions = implode(' ', $actions);
 		}
 
-		$output = self::openTag('div', $groupOptions);
-		$output .= self::controls($input);
-		$output .= '</div>';
-
-		return $output;
+		return self::tag('div', $htmlOptions, $actions);;
 	}
 
 	public static function actionButtons(array $buttons)
@@ -160,10 +156,38 @@ class AdHtml extends TbHtml
 				'type' => self::BUTTON_TYPE_LINK,
 				'label' => $cancel,
 				'htmlOptions' => array(
+					'color' => self::BUTTON_COLOR_WARNING,
 					'url' => $url,
 				)
 			);
 		}
+
+		return self::actionButtonsControlGroup($formButtons);
+	}
+
+	public static function areaFormActions($url = array('index'))
+	{
+		$formButtons[] = array(
+			'type' => self::BUTTON_TYPE_SUBMIT,
+			'label' => self::iconFA('check').' '.Yii::app()->andystrap->t('Confirm'),
+			'htmlOptions' => array(
+				'color' => self::BUTTON_COLOR_PRIMARY,
+			)
+		);
+
+		if (Yii::app()->controller->pageUrl) {
+			if (!empty($url)) {
+				$url = self::urlPager($url);
+			}
+		}
+		$formButtons[] = array(
+			'type' => self::BUTTON_TYPE_LINK,
+			'label' => self::iconFA('times').' '.Yii::app()->andystrap->t('Cancel'),
+			'htmlOptions' => array(
+				'color' => self::BUTTON_COLOR_WARNING,
+				'url' => $url,
+			)
+		);
 
 		return self::actionButtonsControlGroup($formButtons);
 	}

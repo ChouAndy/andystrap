@@ -31,7 +31,7 @@ class Andystrap extends CApplicationComponent
 		}
 
 		/* Packages */
-		$packages = require('packages.php');
+		$packages = require('components/packages.php');
 		foreach ($packages as $name => $definition) {
 			$this->assetsRegistry->addPackage($name, $definition);
 		}
@@ -56,5 +56,10 @@ class Andystrap extends CApplicationComponent
 	public function registerPackage($name)
 	{
 		return $this->assetsRegistry->registerPackage($name);
+	}
+
+	public function t($message, $params=array ())
+	{
+		return Yii::t('andystrap.widget', $message, $params);
 	}
 }
