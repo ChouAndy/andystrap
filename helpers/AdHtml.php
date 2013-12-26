@@ -165,33 +165,6 @@ class AdHtml extends TbHtml
 		return self::actionButtonsControlGroup($formButtons);
 	}
 
-	public static function areaFormActions($url = array('index'))
-	{
-		$formButtons[] = array(
-			'type' => self::BUTTON_TYPE_SUBMIT,
-			'label' => self::iconFA('check').' '.Yii::app()->andystrap->t('Confirm'),
-			'htmlOptions' => array(
-				'color' => self::BUTTON_COLOR_PRIMARY,
-			)
-		);
-
-		if (Yii::app()->controller->pageUrl) {
-			if (!empty($url)) {
-				$url = self::urlPager($url);
-			}
-		}
-		$formButtons[] = array(
-			'type' => self::BUTTON_TYPE_LINK,
-			'label' => self::iconFA('times').' '.Yii::app()->andystrap->t('Cancel'),
-			'htmlOptions' => array(
-				'color' => self::BUTTON_COLOR_WARNING,
-				'url' => $url,
-			)
-		);
-
-		return self::actionButtonsControlGroup($formButtons);
-	}
-
 	public static function activeCKEditorControlGroup($model, $attribute, $htmlOptions = array())
 	{
 		$color = TbArray::popValue('color', $htmlOptions);
@@ -629,5 +602,44 @@ class AdHtml extends TbHtml
 		} else {
 			return '';
 		}
+	}
+
+	public static function formActionButtons()
+	{
+		/* 宣告 actions 為 array */
+		$actions = array();
+		/* 初始化 submit 按鈕 */
+		$actions[] = self::btn(
+			self::BUTTON_TYPE_SUBMIT,
+			self::iconFA('check').' '.Yii::app()->andystrap->t('Confirm'),
+			array(
+				'color' => self::BUTTON_COLOR_PRIMARY,
+			)
+		);
+		/* 初始化 cancel 按鈕 */
+		if (Yii::app()->controller->scenario == 'insert') {
+			$url = array('/'.Yii::app()->controller->id);
+		} else {
+			$url = array('view', 'id' => Yii::app()->controller->dataId);
+		}
+		if (Yii::app()->controller->pageUrl) {
+			$url = self::urlPager($url);
+		}
+		$actions[] = self::btn(
+			self::BUTTON_TYPE_LINK,
+			self::iconFA('ban').' '.Yii::app()->andystrap->t('Cancel'),
+			array(
+				'color' => self::BUTTON_COLOR_WARNING,
+				'url' => $url,
+			)
+		);
+		/* 新增 class form-actions */
+		$htmlOptions = array();
+		self::addCssClass('form-actions', $htmlOptions);
+		/* 將 actions 物件使用空格分開 */
+		if (is_array($actions)) {
+			$actions = implode(' ', $actions);
+		}
+		return self::tag('div', $htmlOptions, $actions);;
 	}
 }

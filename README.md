@@ -18,6 +18,6 @@ Andystrap for Yii Framework
 	    'components' => array(
 	        // for Andystrap
 	        'andystrap' => array(
-	            'class' => 'andystrap.components.Andystrap',
+	            'class' => 'andystrap.Andystrap',
 	        ),
 	    ),
