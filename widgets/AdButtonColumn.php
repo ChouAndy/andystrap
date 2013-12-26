@@ -4,6 +4,12 @@ Yii::import('bootstrap.widgets.TbButtonColumn');
 
 class AdButtonColumn extends TbButtonColumn
 {
+	public $viewButtonIcon = 'eye';
+
+	public $updateButtonIcon = 'edit';
+
+	public $deleteButtonIcon = 'trash-o';
+
 	public $extraButtons;
 
 	public $useViewButton = TRUE;
@@ -51,6 +57,6 @@ class AdButtonColumn extends TbButtonColumn
 		$options = TbArray::popValue('options', $button, array());
 		$icon = TbArray::popValue('icon', $button, false);
 
-		echo AdHtml::link(TbHtml::icon($icon).' '.$label, $url, $options);
+		echo AdHtml::link(AdHtml::iconFA($icon).' '.$label, $url, $options);
 	}
 }
