@@ -13,6 +13,7 @@ Andystrap for Yii Framework
 	    'import' => array(
 	        // for andystrap
 	        'andystrap.helpers.*',
+	        'andystrap.components.*',
 	    ),
 	    // application components
 	    'components' => array(

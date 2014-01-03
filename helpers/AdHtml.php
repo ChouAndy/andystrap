@@ -43,6 +43,10 @@ class AdHtml extends TbHtml
 				}
 			}
 
+			if (isset($itemOptions['icon'])) {
+				$itemOptions['label'] = self::iconFA($itemOptions['icon']).' '.$itemOptions['label'];
+			}
+
 			// build header - use link or not
 			if (isset($itemOptions['url'])) {
 				TbArray::defaultValue('url', $itemOptions['url'], $htmlOptions['button']);
