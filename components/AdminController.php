@@ -9,7 +9,6 @@ class AdminController extends Controller
 
 	public function init()
 	{
-		$this->loadSidebarItems();
 		parent::init();
 	}
 
@@ -58,14 +57,6 @@ class AdminController extends Controller
 		$accessRules[] = $denyAccessRules;
 
 		return $accessRules;
-	}
-
-	public function loadSidebarItems()
-	{
-		if (empty(Yii::app()->params['sidebar'])) {
-			$sidebar = require_once(Yii::getPathOfAlias('config.manual.sidebar').'.php');
-			Yii::app()->params['sidebar'] = $sidebar;
-		}
 	}
 
 	public $scenario;
