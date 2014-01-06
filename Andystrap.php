@@ -62,4 +62,13 @@ class Andystrap extends CApplicationComponent
 	{
 		return Yii::t('andystrap.widget', $message, $params);
 	}
+
+	public function registerBootstrapFixCss($url = null)
+	{
+		if ($url === null) {
+			$fileName = 'bootstrap-fix.css';
+			$url = $this->getAssetsUrl() . '/bootstrap-fix/css/' . $fileName;
+		}
+		Yii::app()->clientScript->registerCssFile($url);
+	}
 }

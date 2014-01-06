@@ -66,8 +66,9 @@ class UploadBehavior extends CActiveRecordBehavior
 
 		switch ($this->mode) {
 			case 'one':
-				
+
 				break;
+
 			case 'two':
 				if (!empty($this->deleteOptions)) {
 					$oldData = $this->Owner->findByPk($this->Owner->id);

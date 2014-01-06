@@ -1,0 +1,40 @@
+img.img-polaroid { margin-left: -5px; }
+@media (max-width: 979px) {
+	.nav-collapse .nav > li > a,
+	.nav-collapse .dropdown-menu a {
+		font-weight: normal;
+	}
+	.navbar-inverse .nav.extra { float: left; }
+	.navbar-inverse .nav-collapse .nav > li > a:hover,
+	.navbar-inverse .nav-collapse .nav > li > a:focus,
+	.navbar-inverse .nav-collapse .dropdown-menu a:hover,
+	.navbar-inverse .nav-collapse .dropdown-menu a:focus {
+		color: #ffffff;
+	}
+	.navbar-inverse .nav-collapse .nav .active > a,
+	.navbar-inverse .nav-collapse .dropdown-menu .active > a {
+		color: #ffffff;
+	}
+}
+
+/**
+ * List Setting
+ */
+.table thead tr { background-color: #E9F4E4; }
+.table thead tr > td { border: 0; }
+.table.table-hover tbody tr:hover > td { cursor: pointer; }
+.table.table-hover tbody tr > td.ad-button-column a { color: #000; }
+.table.table-hover tbody tr:hover > td.ad-button-column a { text-decoration: none; color: red; }
+.table.detail-view > tbody th { background-color: #E9F4E4; }
+/**
+ * Form Setting
+ */
+form .sex label { float: left; padding-top: 5px; padding-right: 10px; }
+form .sex input[type="radio"] { float: none; margin-top: -4px; }
+form .sex span.help-inline { padding-top: 5px; }
+form legend { margin-bottom: 0; }
+form .controls > .input-prepend { display: block; padding-left: 28px; }
+form .controls > .input-prepend > .add-on { margin-left: -28px; }
+@media (max-width: 767px) {
+	form .controls > .input-prepend > input { width: 100%; }
+}

@@ -30,22 +30,22 @@ class AdNav extends TbNav
 			$urlTrim = trim($item['url'][0], '/');
 			$urlItems = explode('/', $urlTrim);
 
-			/* when $item['url'][0] only has home url '/' */ 
-			if ($item['url'][0] === '/') {
-				$routeItems = explode('/', $route);
-				if (count($routeItems) == 2 && $routeItems[0] == Yii::app()->defaultController) {
-					$defaultController = ucfirst(Yii::app()->defaultController).'Controller';
-					$defaultController = new $defaultController(Yii::app()->defaultController);
-					if ($routeItems[1] == $defaultController->defaultAction) {
-						unset($item['url']['#']);
-						return true;
-					}
-				}
-			}
-
 			/* when $item['url'][0] only has /{controller} or /{module} or /{module}/{controller} */
 			if (is_array($item['url'])) {
 				$routeItems = explode('/', $route);
+
+				/* when $item['url'][0] only has home url '/' */ 
+				if ($item['url'][0] === '/') {
+					
+					if (count($routeItems) == 2 && $routeItems[0] == Yii::app()->defaultController) {
+						$defaultController = ucfirst(Yii::app()->defaultController).'Controller';
+						$defaultController = new $defaultController(Yii::app()->defaultController);
+						if ($routeItems[1] == $defaultController->defaultAction) {
+							return true;
+						}
+					}
+				}
+
 				if (empty(Yii::app()->controller->module)) {
 					if (count($urlItems == 1) && $urlTrim == $routeItems[0]) { // /{controller}
 						unset($item['url']['#']);
