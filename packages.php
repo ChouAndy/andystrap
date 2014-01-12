@@ -35,10 +35,4 @@ return array(
 		'baseUrl' => $this->getAssetsUrl() . '/ckeditor/',
 		'js' => array('ckeditor.js')
 	),
-
-	'font-awesome' => array(
-		'baseUrl' => $this->getAssetsUrl() . '/font-awesome/',
-		'css' => array('css/font-awesome.min.css'),
-	),
-
 );

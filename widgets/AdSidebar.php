@@ -16,13 +16,13 @@ class AdSidebar extends CWidget
 	// function to init the widget
 	public function init()
 	{
-
+		
 	}
 
 	// function to run the widget
     public function run()
     {
-		$output = AdHtml::openTag('div', array('class' => 'sidebar'));
+		$output = AdHtml::openTag('div', array('class' => 'andystrap-sidebar'));
 
 		foreach ($this->items as $item) {
 			$item['htmlOptions'] = array();

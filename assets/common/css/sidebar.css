@@ -1,0 +1,32 @@
+/**
+ * For Admin View - left side
+ */
+.andystrap-sidebar { margin-bottom: 20px; }
+.andystrap-sidebar > .btn-block { text-align: left; padding-left: 14px; }
+.andystrap-sidebar .accordion-group { margin: 0; border: 0; }
+.andystrap-sidebar .accordion-group + .btn-block { margin-top: 5px; }
+.andystrap-sidebar .sidenav { width: 100%; padding: 0; margin-top: 5px; background-color: #fff;
+	-webkit-border-radius: 6px;
+	   -moz-border-radius: 6px;
+	        border-radius: 6px;
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+	   -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+	        box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+.andystrap-sidebar .sidenav > li > a { display: block; margin: 0 0 -1px 0; padding: 4px 14px; border: 1px solid #e5e5e5; color: #999; }
+.andystrap-sidebar .sidenav > li:last-child > a { margin: 0; }
+.andystrap-sidebar .sidenav > li > a:hover { color: #000; }
+.andystrap-sidebar .sidenav > li:first-child > a {
+	-webkit-border-radius: 6px 6px 0 0;
+	   -moz-border-radius: 6px 6px 0 0;
+	        border-radius: 6px 6px 0 0;
+}
+.andystrap-sidebar .sidenav > li:last-child > a {
+	-webkit-border-radius: 0 0 6px 6px;
+	   -moz-border-radius: 0 0 6px 6px;
+	        border-radius: 0 0 6px 6px;
+}
+.andystrap-sidebar .sidenav > .active > a:hover { background-color: #CBE3CB; color: #F15A24; text-shadow: none; }
+.andystrap-sidebar .sidenav .icon-chevron-right { float: right; margin-top: 2px; margin-right: -6px; opacity: .25; }
+.andystrap-sidebar .sidenav > li > a:hover { background-color: #f5f5f5; }
+.andystrap-sidebar .sidenav a:hover .icon-chevron-right { opacity: .5; }
