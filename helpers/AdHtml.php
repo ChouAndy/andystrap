@@ -543,7 +543,12 @@ class AdHtml extends TbHtml
 
 	public static function nav($type, $items, $htmlOptions = array())
 	{
-		self::addCssClass('nav', $htmlOptions);
+		$classNames = array('class' => 'nav');
+		$classNamesUser = TbArray::popValue('class', $htmlOptions);
+		if ($classNamesUser !== NULL) {
+			TbHtml::addCssClass($classNamesUser, $classNames);
+		}
+		TbArray::defaultValue('class', $classNames['class'], $htmlOptions);
 		if (!empty($type)) {
 			self::addCssClass('nav-' . $type, $htmlOptions);
 		}
@@ -645,5 +650,24 @@ class AdHtml extends TbHtml
 			$actions = implode(' ', $actions);
 		}
 		return self::tag('div', $htmlOptions, $actions);;
+	}
+
+	public static function navbar($content, $htmlOptions = array(), $position = 'navbar')
+	{
+		self::addCssClass($position, $htmlOptions);
+		$color = TbArray::popValue('color', $htmlOptions, 'default');
+		if (!empty($color)) {
+			self::addCssClass('navbar-' . $color, $htmlOptions);
+		}
+		$display = TbArray::popValue('display', $htmlOptions);
+		if (!empty($display)) {
+			self::addCssClass('navbar-' . $display, $htmlOptions);
+		} else if ($position == 'sidebar') {
+			self::addCssClass('navbar-fixed-side', $htmlOptions);
+		}
+		$output = self::openTag('nav', $htmlOptions);
+		$output .= $content;
+		$output .= '</nav>';
+		return $output;
 	}
 }

@@ -1,6 +1,4 @@
 <?php
-Yii::import('andystrap.helpers.AdHtml');
-
 class AdSidebar extends CWidget
 {
 	public $noactiveColor = AdHtml::BUTTON_COLOR_PRIMARY; // 未作用顏色
